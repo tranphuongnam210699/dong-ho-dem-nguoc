@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>dem nguoc</title>
+    <meta charset="utf-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+    <div class="container">
+        <h1>ĐỒNG HỒ ĐẾM NGƯỢC</h1>
+        <div>
+            <input type="number" id="gio" min="0" class="input_time" onkeydown="javascript: return event.keyCode == 69 || event.keyCode == 189 ? false : true">
+            <input type="number" id="phut" min="0" class="input_time" onkeydown="javascript: return event.keyCode == 69 || event.keyCode == 189 ? false : true">
+            <input type="number" id="giay" min="0" class="input_time" onkeydown="javascript: return event.keyCode == 69 || event.keyCode == 189 ? false : true">
+        </div>
+        <div style="margin: 10px 0">
+            <input type="button" value="START" class="btn_cd" onclick="start_cd()">
+        </div>
+        <div class="div_show_time">   
+            <span class="show_time" id="hour">00</span>
+            <span class="show_time" id="minute">00</span>
+            <span class="show_time" id="second">00</span>
+        </div>
+        <div class="div_show_text">
+            <span class="show_text">Hour</span>
+            <span class="show_text">Minute</span>
+            <span class="show_text">Second</span>
+        </div>
+    </div>
+
+
+    <script>
+        function start_cd() {
+
+            $('input.btn_cd').prop("disabled", true);
+            $("input.btn_cd").css('background', '#ccc');
+            var h = document.getElementById('gio').value;
+            var m = document.getElementById('phut').value;
+            var s = document.getElementById('giay').value;
+
+            // h=Math.floor(distance/(1000*60*60));
+            // m=Math.floor((distance%(1000*60*60))/(1000*60));
+            // s=Math.floor((distance%(1000*60))/1000);
+
+            var timeout = setInterval(function(){
+                if(h==0 && m==0 && s<0){
+                    alert("Time Out!!!");
+                    clearInterval(timeout);
+                    $('input.btn_cd').prop('disabled', false);
+                    $("input.btn_cd").css('background', 'linear-gradient(to bottom, #cedbe9 50%,#46adfc 50%)');
+                    $("input.btn_cd").css('background', '-moz-linear-gradient(top, #cedbe9 50%, #46adfc 50%)');
+                    $("input.btn_cd").css('background', '-webkit-linear-gradient(top, #cedbe9 50%,#46adfc 50%)');
+                }else{
+                    if(s < 0){
+                        m -= 1;
+                        s = 59;
+                    }
+                    if(m < 0){
+                        if(m === null){
+                            m=0;
+                        }
+                        h -= 1;
+                        m = 59;
+                    }
+
+                    if(h==null || h=="")
+                        $('#hour').html("00");
+                    else if(h<10)
+                        $('#hour').html('0'+h);
+                    if(m==null || m=="")
+                        $('#minute').html("00");
+                    else if(m<10)
+                        $('#minute').html('0'+m);
+                    if(s<10)
+                        $('#second').html('0'+s);
+                    else
+                        $('#second').html(s);
+                    s--;
+                }
+            }, 1000);
+        }
+    </script>
+</body>
+</html>

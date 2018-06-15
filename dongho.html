@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>dem nguoc</title>
+    <link rel="stylesheet" href="css/main.css">
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>demo</h1>
+    </div>
+    <div>
+            <input type="number" id="gio">
+            <input type="number" id="phut">
+            <input type="number" id="giay">
+            <input type="button" value="GO" onclick="start()">
+    </div>
+    <div>
+        <span class="hienthi" id="hour" ></span>
+        <span class="hienthi" id="minute"></span>
+        <span class="hienthi" id="second"></span>
+    </div>
+    <script>
+        var timeout = null;
+        function start() {
+            console.log("asda");
+            var h = document.getElementById('gio').value;
+            var m = document.getElementById('phut').value;
+            var s = document.getElementById('giay').value;
+            console.log(h,s,m);
+            if(s < 0){
+                m -= 1;
+                s = 59;
+            }
+            if(m < 0){
+                h -= 1;
+                m = 59;
+            }
+            if(h < 0){
+                alert('hết giờ');
+                return false;
+            }
+            document.getElementById('hour').value = h;
+            document.getElementById('minute').value = m;
+            document.getElementById('second').value = s;
+            timeout = setTimeout(function(){
+                s--;
+                start();
+            }, 1000); 
+            console.log(h,m,s);       
+        }
+        function stop() {
+            clearTimeout(timeout);
+        }
+    </script>
+</body>
+</html>
